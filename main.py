@@ -7,6 +7,6 @@ if __name__ == "__main__":
     a = Dyna_Q_plus_Agent(
         planning_steps=100,
         epsilon=0.1, gamma=0.9, step_size=0.25)
-    a.fit(n_episode=401)
+    a.fit(n_episode=401, plot_progress=[400])
     #   plot_progress=[100, 250, 400])
-    animated_heatmap(a.value_estimates, agent_name=a.name)
+    # animated_heatmap(a.value_estimates, agent_name=a.name)

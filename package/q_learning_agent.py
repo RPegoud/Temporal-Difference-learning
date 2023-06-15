@@ -98,7 +98,7 @@ class Q_learning_Agent(Agent):
         return go.Heatmap(z=matrix.values[::-1],
                           x=matrix.columns,
                           y=matrix.index[::-1],
-                          colorscale='Viridis',
+                          colorscale='Plasma',
                           **kwargs)
 
     def plot_bar_chart(self, dataframe: pd.DataFrame, attribute: 'str', color: str):
