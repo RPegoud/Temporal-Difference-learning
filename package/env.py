@@ -9,7 +9,7 @@ class Env:
             "W": ((3, range(3)), (range(5, 8), 3)),  # wall
             "T": ((range(3), 8), (3, range(8, 12))),  # trap
             "P": ((6, 10), (0, 11)),  # portal
-            "LP": ((1, 2),),  # late portal
+            "LP": ((2, 1),),  # late portal
             "G": ((2, 9),),  # goal
         }
         self.generate_grid()

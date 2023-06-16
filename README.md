@@ -9,15 +9,15 @@ The results obtained during the training outline the importance of continous exp
 <div align="center">
   <div style="display: flex; justify-content: center;">
     <div style="margin-right: 20px;">
-      <img src="videos\q_learning_state_values.gif" alt="Image 1" width="300" />
+      <img src="https://github.com/RPegoud/Temporal-Difference-learning/blob/main/videos/q_learning_state_values.gif?raw=true" alt="Image 1" width="300" />
       <p align="center"><em>Q-learning</em></p>
     </div>
     <div style="margin-right: 20px;">
-      <img src="videos\dyna_q_state_values.gif" alt="Image 2" width="280" />
+      <img src="https://github.com/RPegoud/Temporal-Difference-learning/blob/main/videos/dyna_q_state_values.gif?raw=true" alt="Image 2" width="280" />
       <p align="center"><em>Dyna-Q</em></p>
     </div>
     <div>
-      <img src="videos\dyna_q_plus_state_values.gif" alt="Image 3" width="290" />
+      <img src="https://github.com/RPegoud/Temporal-Difference-learning/blob/main/videos/dyna_q_plus_state_values.gif?raw=true" alt="Image 3" width="290" />
       <p align="center"><em>Dyna-Q+</em></p>
     </div>
   </div>
@@ -51,3 +51,10 @@ To install and set up the project, follow these steps:
 
    ```bash
    poetry shell
+
+## Use
+
+1. Modify the main.py file depending on the test you want to perform and run:
+
+   ```bash
+   python main.py

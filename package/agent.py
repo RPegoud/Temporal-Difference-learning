@@ -92,9 +92,9 @@ class Agent:
             return (11, 0)
         # if the agent encounters falls into a trao
         if self.env.grid.loc[y, x] == "T":
-            # self.rewards.append(0)
-            # self.done = True
-            return self.env.coordinates["A"][0]
+            self.rewards.append(0)
+            self.done = True
+            # return self.env.coordinates["A"][0]
         # if the agent finds the treasure
         if self.env.grid.loc[y, x] == "G":
             self.rewards.append(1)
@@ -143,14 +143,3 @@ class Agent:
             action_values = self.q_values[state]
             action = self.argmax(action_values)
         return action
-
-    def agent_start(self, state: int):
-        """
-        Called at the start of an episode, takes the first action
-        given the initial state
-        """
-        self.past_state = state
-        self.past_action = self.epsilon_greedy(state)
-        # take the action
-        self.update_state(state, self.past_action)
-        return self.past_action

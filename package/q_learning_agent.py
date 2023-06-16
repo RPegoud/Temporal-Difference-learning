@@ -15,6 +15,20 @@ class Q_learning_Agent(Agent):
     ) -> None:
         super().__init__(gamma, step_size, epsilon)
         self.name = "Q-learning"
+        # used to display the performances of the model for every step
+        self.cumulative_rewards = []
+        self.reward_counter = 0
+
+    def agent_start(self, state: int):
+        """
+        Called at the start of an episode, takes the first action
+        given the initial state
+        """
+        self.past_state = state
+        self.past_action = self.epsilon_greedy(state)
+        # take the action
+        self.update_state(state, self.past_action)
+        return self.past_action
 
     def step(self, state: int, reward: int) -> None:
         # direct RL update
@@ -23,7 +37,6 @@ class Q_learning_Agent(Agent):
             reward + self.gamma * np.max(self.q_values[state]) - update
         )
         self.q_values[self.past_state][self.past_action] = update
-        # model update
         # action selection using the e-greedy policy
         action = self.epsilon_greedy(state)
         self.update_state(state, action)
@@ -55,9 +68,8 @@ class Q_learning_Agent(Agent):
         self.agent_start(self.start_position)
         episode_steps = 1
         while not self.done:
-            self.step(
-                self.position, self.env.get_reward(self.state_to_coord(self.position))
-            )
+            reward = self.env.get_reward(self.state_to_coord(self.position))
+            self.step(self.position, reward)
             episode_steps += 1
         self.n_steps.append(episode_steps)
         self.agent_end()
@@ -70,7 +82,6 @@ class Q_learning_Agent(Agent):
         function for each episode in the list
         """
         self.value_estimates = {}
-        self.paths = {}
         self.episode_played = 0
         for idx in tqdm(range(n_episode), position=0, leave=True):
             if self.episode_played == 100:
@@ -79,9 +90,7 @@ class Q_learning_Agent(Agent):
             self.value_estimates[self.episode_played] = self.state_dict_to_matrix(
                 self.q_values
             ).values
-            self.paths[self.episode_played] = self.state_dict_to_matrix(
-                self.paths
-            ).values
+
             self.episode_played += 1
             if plot_progress is not None:
                 if idx in plot_progress:
@@ -125,9 +134,7 @@ class Q_learning_Agent(Agent):
 
         # # assign the color green if the agent finds the treasure within 12 steps, red if 17 steps
         # # blue if the agent terminates before finding the reward or in more than 17 steps
-        episodes = pd.DataFrame(
-            {"steps": self.n_steps[-101:], "reward": self.rewards[-101:]}
-        )
+        episodes = pd.DataFrame({"steps": self.n_steps, "reward": self.rewards})
         episodes["is_optimal"] = "#636EFA"  # Assign default blue color
         episodes.loc[
             (episodes["reward"] == 1) & (episodes["steps"].between(13, 17)),
@@ -137,6 +144,7 @@ class Q_learning_Agent(Agent):
             (episodes["reward"] == 1) & (episodes["steps"] == 12), "is_optimal"
         ] = "#00CC96"  # Green color
         episodes["is_optimal"] = pd.Categorical(episodes["is_optimal"])
+        self.episodes = episodes
 
         # create the plots
         heatmap1 = self.plot_heatmap(
@@ -145,7 +153,9 @@ class Q_learning_Agent(Agent):
         heatmap2 = self.plot_heatmap(
             state_visits, **{"colorbar": dict(x=1, y=0.78, len=0.473)}
         )
-        bar_chart = self.plot_bar_chart(episodes, attribute="steps", color="is_optimal")
+        bar_chart = self.plot_bar_chart(
+            episodes.tail(100), attribute="steps", color="is_optimal"
+        )
 
         # Create subplot figure
         fig = make_subplots(
