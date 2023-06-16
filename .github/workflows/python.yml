@@ -36,7 +36,7 @@ jobs:
           key: ${{ runner.os }}-venv-${{ hashFiles('**/poetry.lock') }}
     
       - name: Regenerate lock file
-        run: poetry lock
+        run: poetry lock --no-update
         
       - name: Install dependencies
         run: |
