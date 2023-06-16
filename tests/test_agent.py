@@ -62,11 +62,9 @@ def test_update_state_movement():
     assert a.done is False
     a.update_state(91, 2)
     assert a.done is True
-    # test termination on wholes
-    a.done = False
-    assert a.done is False
+    # test position reset on red portals
     a.update_state(72, 1)
-    assert a.done is True
+    assert a.state_to_coord(a.position) == a.env.coordinates["A"][0]
 
 
 def test_epsilon_greedy_selection():
