@@ -44,7 +44,7 @@ jobs:
 
     - name: Lint job
       run: |
-        poe format_and_lint
+        poetry run poe format_and_lint
         
     - name: Run tests with pytest
       run: pytest
