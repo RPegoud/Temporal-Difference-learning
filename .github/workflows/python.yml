@@ -2,11 +2,11 @@ name: Python Formatting, Linting, and Testing
 
 on:
   push:
-    branches-ignore:
-      - '*'
+    branches:
+      - main
   pull_request:
-    branches-ignore:
-      - '*'
+    branches:
+      - main
 
 jobs:
   build:
