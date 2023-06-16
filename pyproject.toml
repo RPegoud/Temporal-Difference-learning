@@ -15,6 +15,7 @@ tqdm = "^4.65.0"
 black = "^23.3.0"
 isort = "^5.12.0"
 ruff = "^0.0.272"
+poethepoet = "^0.20.0"
 
 [tool.ruff]
 extend-ignore = ["E501"]
@@ -24,5 +25,8 @@ extend-exclude = ["__init__.py"]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
 
-[tool.poetry.scripts]
-format-lint = "black . && isort . && ruff check ."
+[tool.poe.tasks]
+format = { cmd = "black .", help = "Check code style and format it" }
+format_imports = { cmd = "isort .", help = "Sort imports" }
+lint = { cmd = "ruff check . --fix", help = "Perform linting on your code" }
+format_and_lint = ["format", "format_imports", "lint"]

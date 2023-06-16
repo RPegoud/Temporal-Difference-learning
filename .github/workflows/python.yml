@@ -42,8 +42,9 @@ jobs:
     - name: Install dependencies
       run: poetry install
 
-    - name: Format and lint code
-      run: poetry run format-lint
-
+    - name: Lint job
+      run: |
+        poe format_and_lint
+        
     - name: Run tests with pytest
       run: pytest
