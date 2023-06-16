@@ -1,5 +1,6 @@
-from package import Dyna_Q_Agent
 import numpy as np
+
+from package import Dyna_Q_Agent
 
 
 class Dyna_Q_plus_Agent(Dyna_Q_Agent):
@@ -10,19 +11,23 @@ class Dyna_Q_plus_Agent(Dyna_Q_Agent):
     was tried is given by tau(state, action)
     The associated reward is given by: reward + kappa * sqrt(tau(state, action))
     """
-    def __init__(self,
-                 gamma: float = 1,
-                 step_size: float = 0.1,
-                 epsilon: float = 0.1,
-                 planning_steps: int = 100,
-                 kappa: float = 1e-3,
-                 ) -> None:
+
+    def __init__(
+        self,
+        gamma: float = 1,
+        step_size: float = 0.1,
+        epsilon: float = 0.1,
+        planning_steps: int = 100,
+        kappa: float = 1e-3,
+    ) -> None:
         super().__init__(gamma, step_size, epsilon, planning_steps)
         self.name = "Dyna-Q+"
         self.kappa = kappa
         self.tau = self.init_state_action_dict()
 
-    def update_model(self, last_state: int, last_action: int, state: int, reward: int) -> None:
+    def update_model(
+        self, last_state: int, last_action: int, state: int, reward: int
+    ) -> None:
         """
         Overwrite the Dyna-Q update_model function
         Now, when we visit a state for the first time, all the action that were not selected
@@ -53,7 +58,8 @@ class Dyna_Q_plus_Agent(Dyna_Q_Agent):
             planning_state = self.random_generator.choice(list(self.model.keys()))
             # select a recorded action
             planning_action = self.random_generator.choice(
-                list(self.model[planning_state].keys()))
+                list(self.model[planning_state].keys())
+            )
             # get the predicted next state and reward
             next_state, reward = self.model[planning_state][planning_action]
             # add the bonus reward
@@ -66,8 +72,9 @@ class Dyna_Q_plus_Agent(Dyna_Q_Agent):
             # update the values in case of non-terminal state
             else:
                 update = self.q_values[planning_state][planning_action]
-                update += self.step_size * (reward + self.gamma
-                                            * np.max(self.q_values[next_state]) - update)
+                update += self.step_size * (
+                    reward + self.gamma * np.max(self.q_values[next_state]) - update
+                )
                 self.q_values[planning_state][planning_action] = update
 
     def step(self, state: int, reward: int) -> None:
@@ -78,7 +85,9 @@ class Dyna_Q_plus_Agent(Dyna_Q_Agent):
         """
         # direct RL update
         update = self.q_values[self.past_state][self.past_action]
-        update += self.step_size * (reward + self.gamma * np.max(self.q_values[state]) - update)
+        update += self.step_size * (
+            reward + self.gamma * np.max(self.q_values[state]) - update
+        )
         self.q_values[self.past_state][self.past_action] = update
         # model update
         self.update_model(self.past_state, self.past_action, state, reward)

@@ -1,16 +1,16 @@
-import pandas as pd
 import numpy as np
+import pandas as pd
 
 
-class Env():
+class Env:
     def __init__(self) -> None:
         self.coordinates = {
-            'A': ((6, 1),),  # agent start position
-            'W': ((3, range(3)), (range(5, 8), 3)),  # wall
-            'T': ((range(3), 8), (3, range(8, 12))),  # trap
-            'P': ((6, 10), (0, 11)),  # portal
-            'LP': ((1, 2),),  # late portal
-            'G': ((2, 9),)  # goal
+            "A": ((6, 1),),  # agent start position
+            "W": ((3, range(3)), (range(5, 8), 3)),  # wall
+            "T": ((range(3), 8), (3, range(8, 12))),  # trap
+            "P": ((6, 10), (0, 11)),  # portal
+            "LP": ((1, 2),),  # late portal
+            "G": ((2, 9),),  # goal
         }
         self.generate_grid()
         self.generate_reward_map()
@@ -23,12 +23,12 @@ class Env():
         self.grid = pd.DataFrame(grid)
 
     def activate_late_portal(self):
-        late_portal_coord = self.coordinates.get('LP')[0]
-        self.grid.loc[late_portal_coord] = 'P'
+        late_portal_coord = self.coordinates.get("LP")[0]
+        self.grid.loc[late_portal_coord] = "P"
 
     def generate_reward_map(self) -> pd.DataFrame:
         reward_map = np.zeros((8, 12), dtype=np.float32)
-        reward_map[self.coordinates['G'][0]] = 1
+        reward_map[self.coordinates["G"][0]] = 1
         self.reward_map = pd.DataFrame(reward_map)
 
     def get_reward(self, coordinates: tuple = None, reverse: bool = True) -> int:

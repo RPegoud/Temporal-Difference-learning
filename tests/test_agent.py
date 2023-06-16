@@ -1,6 +1,7 @@
+import numpy as np
+
 from package.agent import Agent
 from package.dyna_q_agent import Dyna_Q_Agent
-import numpy as np
 
 
 def test_agent_update_model():
@@ -9,9 +10,7 @@ def test_agent_update_model():
     a.update_model(11, 3, 10, 0)
     a.update_model(111, 0, 110, 1)
 
-    assert a.model == {6: {1: (7, 0)},
-                       11: {3: (10, 0)},
-                       111: {0: (110, 1)}}
+    assert a.model == {6: {1: (7, 0)}, 11: {3: (10, 0)}, 111: {0: (110, 1)}}
 
 
 def test_argmax():
@@ -30,7 +29,7 @@ def test_coord_to_state():
     rows, cols = a.env.grid.index, a.env.grid.columns
     for row in rows:
         for col in cols:
-            assert a.coord_to_state((col, row)) == col*10 + row
+            assert a.coord_to_state((col, row)) == col * 10 + row
 
 
 def test_state_coord_identity():
@@ -95,16 +94,15 @@ def test_planning_step():
     assert a.model == expected_model
 
     a.planning_step()
-    expected_q_values = [np.array([0., 0., 0.1271, 0.2], dtype=np.float32),
-                         np.array([0., 0.3439, 0., 0.], dtype=np.float32),
-                         np.array([0.3152, 0., 0., 0.], dtype=np.float32)]
+    expected_q_values = [
+        np.array([0.0, 0.0, 0.1271, 0.2], dtype=np.float32),
+        np.array([0.0, 0.3439, 0.0, 0.0], dtype=np.float32),
+        np.array([0.3152, 0.0, 0.0, 0.0], dtype=np.float32),
+    ]
     assert np.all(np.isclose(expected_q_values, list(a.q_values.values())[:3]))
 
 
-def test_agent_start_step_end(planning_steps=4,
-                              epsilon=0.1,
-                              gamma=1,
-                              step_size=0.1):
+def test_agent_start_step_end(planning_steps=4, epsilon=0.1, gamma=1, step_size=0.1):
     a = Dyna_Q_Agent(planning_steps=4, epsilon=0)
 
     # ----------------
@@ -130,8 +128,7 @@ def test_agent_start_step_end(planning_steps=4,
     assert action == 2
     assert a.position == 16
 
-    expected_model = {16: {3: (6, 0.0), 0: (15, 0.0)},
-                      6: {1: (16, 0.0)}}
+    expected_model = {16: {3: (6, 0.0), 0: (15, 0.0)}, 6: {1: (16, 0.0)}}
     assert a.model == expected_model
 
     for action_values in list(a.q_values.values()):
@@ -144,7 +141,7 @@ def test_agent_start_step_end(planning_steps=4,
     a.update_state(102, 3)
     a.agent_end()
 
-    expected_q_values = np.array([0., 0., 0.271, 0.], dtype=np.float32)
+    expected_q_values = np.array([0.0, 0.0, 0.271, 0.0], dtype=np.float32)
     assert np.all(a.q_values.get(15) == expected_q_values)
 
 

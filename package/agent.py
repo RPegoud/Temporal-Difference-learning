@@ -1,13 +1,15 @@
 import numpy as np
+
 from package.env import Env
 
 
-class Agent():
-    def __init__(self,
-                 gamma: float = 0.1,  # undiscounted task
-                 step_size: float = 0.1,
-                 epsilon: float = 0.1,
-                 ) -> None:
+class Agent:
+    def __init__(
+        self,
+        gamma: float = 0.1,  # undiscounted task
+        step_size: float = 0.1,
+        epsilon: float = 0.1,
+    ) -> None:
         self.env = Env()
         self.gamma = gamma
         self.step_size = step_size
@@ -17,7 +19,9 @@ class Agent():
         self.last_action = -1
         self.last_state = -1
         self.n_states = self.env.grid.size
-        self.start_position = self.coord_to_state(self.env.coordinates.get('A')[0][::-1])
+        self.start_position = self.coord_to_state(
+            self.env.coordinates.get("A")[0][::-1]
+        )
         self.position = self.start_position
         self.q_values = self.init_state_action_dict()
         self.state_visits = self.init_state_dict(initial_value=0)
@@ -33,17 +37,19 @@ class Agent():
         self.last_state = -1
 
     def coord_to_state(self, coordinates: tuple) -> int:
-        return coordinates[0]*10 + coordinates[1]
+        return coordinates[0] * 10 + coordinates[1]
 
     def state_to_coord(self, state: int):
-        return (int(state//10), state % 10)
+        return (int(state // 10), state % 10)
 
     def init_state_action_dict(self) -> dict:
         output_dict = {}
         rows, cols = self.env.grid.index, self.env.grid.columns
         for col in cols:
             for row in rows:
-                output_dict[self.coord_to_state((col, row))] = np.zeros(4, dtype=np.float32)
+                output_dict[self.coord_to_state((col, row))] = np.zeros(
+                    4, dtype=np.float32
+                )
         return output_dict
 
     def init_state_dict(self, initial_value) -> dict:
@@ -79,17 +85,17 @@ class Agent():
 
         # /!\ when parsing the dataframe x and y are reversed
         # if the agent bumps into a wall
-        if self.env.grid.loc[y, x] == 'W':
+        if self.env.grid.loc[y, x] == "W":
             return coord
         # if the agent goes through the portal
-        if self.env.grid.loc[y, x] == 'P':
+        if self.env.grid.loc[y, x] == "P":
             return (11, 0)
         # if the agent encounters falls into a trao
-        if self.env.grid.loc[y, x] == 'T':
+        if self.env.grid.loc[y, x] == "T":
             self.rewards.append(0)
             self.done = True
         # if the agent finds the treasure
-        if self.env.grid.loc[y, x] == 'G':
+        if self.env.grid.loc[y, x] == "G":
             self.rewards.append(1)
             self.done = True
 
@@ -97,7 +103,12 @@ class Agent():
         return (x, y)
 
     def update_state(self, state, action) -> int:
-        assert action in [0, 1, 2, 3], f"Invalid action: {action}, should be in\
+        assert action in [
+            0,
+            1,
+            2,
+            3,
+        ], f"Invalid action: {action}, should be in\
             {[i for i in range(4)]}"
         coord = self.state_to_coord(state)
         updated_coord = self.update_coord(coord, action)
@@ -111,8 +122,9 @@ class Agent():
         Selects the index of the highest action value
         Breaks ties randomly
         """
-        return self.random_generator.choice(np.flatnonzero(
-            action_values == np.max(action_values)))
+        return self.random_generator.choice(
+            np.flatnonzero(action_values == np.max(action_values))
+        )
 
     def epsilon_greedy(self, state) -> int:
         """

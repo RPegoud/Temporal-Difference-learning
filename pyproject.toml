@@ -1,0 +1,25 @@
+[tool.poetry]
+name = "temporal difference learning"
+version = "0.1.0"
+description = "Project meant to compare Q-Learning, Dyna-Q and Dyna-Q+ on a changing Grid World environment"
+authors = ["Ryan Pégoud <ryanpegoud@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+pandas = "^2.0.2"
+numpy = "^1.24.3"
+plotly = "^5.15.0"
+tqdm = "^4.65.0"
+black = "^23.3.0"
+isort = "^5.12.0"
+ruff = "^0.0.272"
+
+[tool.ruff]
+extend-ignore = ["E501"]
+extend-exclude = ["__init__.py"]
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
