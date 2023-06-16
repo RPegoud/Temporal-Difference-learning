@@ -1,6 +1,6 @@
 import numpy as np
 
-from package import Q_learning_Agent
+from package.q_learning_agent import Q_learning_Agent
 
 
 class Dyna_Q_Agent(Q_learning_Agent):
