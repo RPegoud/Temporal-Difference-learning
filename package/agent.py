@@ -92,8 +92,9 @@ class Agent:
             return (11, 0)
         # if the agent encounters falls into a trao
         if self.env.grid.loc[y, x] == "T":
-            self.rewards.append(0)
-            self.done = True
+            # self.rewards.append(0)
+            # self.done = True
+            return self.env.coordinates["A"][0]
         # if the agent finds the treasure
         if self.env.grid.loc[y, x] == "G":
             self.rewards.append(1)
@@ -102,14 +103,17 @@ class Agent:
         self.position == (x, y)
         return (x, y)
 
-    def update_state(self, state, action) -> int:
+    def update_state(self, state: int, action: int) -> int:
+        """
+        Uses the update_coord function to update the agent's position (i.e. state)
+        based on its current state and an action
+        """
         assert action in [
             0,
             1,
             2,
             3,
-        ], f"Invalid action: {action}, should be in\
-            {[i for i in range(4)]}"
+        ], f"Invalid action: {action}, should be in {[i for i in range(4)]}"
         coord = self.state_to_coord(state)
         updated_coord = self.update_coord(coord, action)
         updated_state = self.coord_to_state(updated_coord)

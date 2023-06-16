@@ -52,7 +52,6 @@ def animated_heatmap(state_value_dict: dict, agent_name: str = None):
                 layout=go.Layout(
                     title_text=f"{agent_name}: State values for episode: {i}"
                 ),
-                # Decrease the duration for faster transitions (in milliseconds)
                 traces=[0],
                 name=f"frame_{i}",
             )
