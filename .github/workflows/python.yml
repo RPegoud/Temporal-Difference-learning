@@ -46,7 +46,7 @@ jobs:
         run: isort .
 
       - name: Lint code with Ruff
-        run: ruff .
+        run: ruff check .
 
       - name: Run tests with pytest
         run: pytest
