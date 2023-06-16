@@ -47,4 +47,5 @@ jobs:
         poetry run poe format_and_lint
         
     - name: Run tests with pytest
-      run: pytest
+      run: |
+        poetry run pytest
