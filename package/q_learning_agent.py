@@ -75,11 +75,14 @@ class Q_learning_Agent(Agent):
         self.agent_end()
         self.reset()
 
-    def fit(self, n_episode: int, plot_progress: list = None) -> None:
+    def fit(
+        self, n_episode: int, log_progress: list = None, plot: bool = False
+    ) -> None:
         """
         Plays n_episode episodes
-        @plot_progress (list): calls the plot_agent_performances
+        @log_progress (list): calls the log_agent_performances
         function for each episode in the list
+        @plot (bool): whether to plot the recorded progress or not
         """
         self.value_estimates = {}
         self.episode_played = 0
@@ -92,9 +95,9 @@ class Q_learning_Agent(Agent):
             ).values
 
             self.episode_played += 1
-            if plot_progress is not None:
-                if idx in plot_progress:
-                    self.plot_agent_performances()
+            if log_progress is not None:
+                if idx in log_progress:
+                    self.log_agent_performances(plot=plot)
 
     def state_dict_to_matrix(self, dictionary: dict) -> pd.DataFrame:
         """
@@ -124,9 +127,10 @@ class Q_learning_Agent(Agent):
     def plot_bar_chart(self, dataframe: pd.DataFrame, attribute: "str", color: str):
         return go.Bar(y=dataframe[attribute], marker=dict(color=dataframe[color]))
 
-    def plot_agent_performances(self) -> None:
+    def log_agent_performances(self, plot: bool = False) -> None:
         """
-        Plots the current state of the agent's q values, the number of visits for each state
+        Records the steps and reward for each episode until the current time step
+        @plot: plots the current state of the agent's q values, the number of visits for each state
         and the number of steps per episode
         """
         q_values = self.state_dict_to_matrix(self.q_values)
@@ -146,38 +150,39 @@ class Q_learning_Agent(Agent):
         episodes["is_optimal"] = pd.Categorical(episodes["is_optimal"])
         self.episodes = episodes
 
-        # create the plots
-        heatmap1 = self.plot_heatmap(
-            q_values, **{"colorbar": dict(x=0.45, y=0.78, len=0.473)}
-        )
-        heatmap2 = self.plot_heatmap(
-            state_visits, **{"colorbar": dict(x=1, y=0.78, len=0.473)}
-        )
-        bar_chart = self.plot_bar_chart(
-            episodes.tail(100), attribute="steps", color="is_optimal"
-        )
+        if plot:
+            # create the plots
+            heatmap1 = self.plot_heatmap(
+                q_values, **{"colorbar": dict(x=0.45, y=0.78, len=0.473)}
+            )
+            heatmap2 = self.plot_heatmap(
+                state_visits, **{"colorbar": dict(x=1, y=0.78, len=0.473)}
+            )
+            bar_chart = self.plot_bar_chart(
+                episodes.tail(100), attribute="steps", color="is_optimal"
+            )
 
-        # Create subplot figure
-        fig = make_subplots(
-            rows=2,
-            cols=2,
-            shared_xaxes=False,
-            vertical_spacing=0.13,
-            specs=[[{}, {}], [{"colspan": 2}, None]],
-            subplot_titles=(
-                "State value function",
-                "Number of total visits",
-                "Number of steps per episode (last 100 steps) green bar = 12 steps, red bars = 17 or less steps",
-            ),
-        )
+            # Create subplot figure
+            fig = make_subplots(
+                rows=2,
+                cols=2,
+                shared_xaxes=False,
+                vertical_spacing=0.13,
+                specs=[[{}, {}], [{"colspan": 2}, None]],
+                subplot_titles=(
+                    "State value function",
+                    "Number of total visits",
+                    "Number of steps per episode (last 100 steps) green bar = 12 steps, red bars = 17 or less steps",
+                ),
+            )
 
-        # Add the heatmaps and bar chart to the subplot figure
-        fig.add_trace(heatmap1, row=1, col=1)
-        fig.add_trace(heatmap2, row=1, col=2)
-        fig.add_trace(bar_chart, row=2, col=1)
+            # Add the heatmaps and bar chart to the subplot figure
+            fig.add_trace(heatmap1, row=1, col=1)
+            fig.add_trace(heatmap2, row=1, col=2)
+            fig.add_trace(bar_chart, row=2, col=1)
 
-        title = f"Agent: {self.name}, Number of episodes: {self.episode_played}<br>\
-        <span style='font-size: 13px'>Model parameters: [learning rate: {self.step_size}, epsilon: {self.epsilon}, discount: {self.gamma}]</span>"
-        fig.update_layout(height=900, width=1200, title=title)
+            title = f"Agent: {self.name}, Number of episodes: {self.episode_played}<br>\
+            <span style='font-size: 13px'>Model parameters: [learning rate: {self.step_size}, epsilon: {self.epsilon}, discount: {self.gamma}]</span>"
+            fig.update_layout(height=900, width=1200, title=title)
 
-        fig.show()
+            fig.show()
