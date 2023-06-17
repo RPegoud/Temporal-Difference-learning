@@ -141,7 +141,7 @@ class Q_learning_Agent(Agent):
             "is_optimal",
         ] = "#EF553B"  # Red color
         episodes.loc[
-            (episodes["reward"] == 1) & (episodes["steps"] == 12), "is_optimal"
+            (episodes["reward"] == 1) & (episodes["steps"] <= 12), "is_optimal"
         ] = "#00CC96"  # Green color
         episodes["is_optimal"] = pd.Categorical(episodes["is_optimal"])
         self.episodes = episodes
