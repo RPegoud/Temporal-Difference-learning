@@ -21,7 +21,7 @@ class Dyna_Q_plus_Agent(Dyna_Q_Agent):
         kappa: float = 1e-3,
     ) -> None:
         super().__init__(gamma, step_size, epsilon, planning_steps)
-        self.name = "Dyna-Q+"
+        self.name = "Dyna-Q_plus"
         self.kappa = kappa
         self.tau = self.init_state_action_dict()
 

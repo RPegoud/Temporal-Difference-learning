@@ -103,12 +103,28 @@ def plot_average_cumulative_reward(*agents):
     fig = go.Figure()
 
     for agent in agents:
-        df = agent.episodes
-        df["cumulative_reward"] = df["reward"].cumsum()
-        average_cumulative_reward = df["cumulative_reward"] / (df.index + 1)
+        results_file = f"results/{agent.name}_results.csv"
+        agent_results_concatenated = pd.read_csv(
+            results_file, index_col=["Run", "episode"]
+        )
+
+        # Calculate the average results by episode across the runs
+        num_runs = agent_results_concatenated.index.get_level_values("Run").nunique()
+        agent_results_average = agent_results_concatenated.groupby("episode").agg(
+            "mean", numeric_only=True
+        )
+
+        cumulative_rewards = agent_results_average["reward"].cumsum()
+        average_cumulative_reward = cumulative_rewards / (
+            num_runs + 1
+        )  # Add 1 to include the current run
+
         fig.add_trace(
             go.Scatter(
-                x=df.index, y=average_cumulative_reward, mode="lines", name=agent.name
+                x=average_cumulative_reward.index,
+                y=average_cumulative_reward,
+                mode="lines",
+                name=agent.name,
             )
         )
 
@@ -124,10 +140,21 @@ def plot_steps_per_episode(*agents):
     fig = go.Figure()
 
     for agent in agents:
-        steps_per_episode = agent.episodes["steps"]
+        results_file = f"results/{agent.name}_results.csv"
+        agent_results_concatenated = pd.read_csv(
+            results_file, index_col=["Run", "episode"]
+        )
+
+        # Calculate the average results by episode across the runs
+        agent_results_average = agent_results_concatenated.groupby("episode").agg(
+            "mean", numeric_only=True
+        )
+
+        steps_per_episode = agent_results_average["steps"]
+
         fig.add_trace(
             go.Scatter(
-                x=agent.episodes.index,
+                x=steps_per_episode.index,
                 y=steps_per_episode,
                 name=agent.name,
                 mode="lines",
