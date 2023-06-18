@@ -99,7 +99,7 @@ def animated_heatmap(state_value_dict: dict, agent_name: str = None):
     fig.show()
 
 
-def plot_average_cumulative_reward(*agents):
+def plot_average_reward(*agents):
     fig = go.Figure()
 
     for agent in agents:
@@ -114,22 +114,21 @@ def plot_average_cumulative_reward(*agents):
             "mean", numeric_only=True
         )
 
-        cumulative_rewards = agent_results_average["reward"].cumsum()
-        average_cumulative_reward = cumulative_rewards / (
-            num_runs + 1
+        # cumulative_rewards = agent_results_average["reward"].cumsum()
+        average_cumulative_reward = (
+            agent_results_average / (num_runs + 1) * 100
         )  # Add 1 to include the current run
-
         fig.add_trace(
             go.Scatter(
                 x=average_cumulative_reward.index,
-                y=average_cumulative_reward,
+                y=average_cumulative_reward.reward,
                 mode="lines",
                 name=agent.name,
             )
         )
 
     fig.update_layout(
-        title="Average Cumulative Reward per Episode",
+        title="Average Reward per Episode (Averaged over 100 runs)",
         xaxis_title="Episode",
         yaxis_title="Average Cumulative Reward",
     )
