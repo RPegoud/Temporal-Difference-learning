@@ -6,7 +6,7 @@ from tqdm import tqdm
 
 from package.dyna_q_agent import Dyna_Q_Agent
 from package.dyna_q_plus_agent import Dyna_Q_plus_Agent
-from package.plots import plot_average_cumulative_reward, plot_steps_per_episode
+from package.plots import plot_average_reward, plot_steps_per_episode
 from package.q_learning_agent import Q_learning_Agent
 
 if __name__ == "__main__":
@@ -27,11 +27,11 @@ if __name__ == "__main__":
     }
 
     num_runs = 100
-    num_episodes = 401
+    num_episodes = 250
     random_seeds = np.arange(num_runs) + 100  # avoid seed 17, only used for testing
 
     for agent_class, agent_parameters in agents_parameters.items():
-        print(str(agent_class))
+        print(agent_class().name)
         agent_results = []
 
         for run in tqdm(range(num_runs), position=0, leave=True):
@@ -63,7 +63,5 @@ if __name__ == "__main__":
         )
 
     # Compare the agents performances
-    plot_average_cumulative_reward(
-        Q_learning_Agent(), Dyna_Q_Agent(), Dyna_Q_plus_Agent()
-    )
+    plot_average_reward(Q_learning_Agent(), Dyna_Q_Agent(), Dyna_Q_plus_Agent())
     plot_steps_per_episode(Q_learning_Agent(), Dyna_Q_Agent(), Dyna_Q_plus_Agent())
