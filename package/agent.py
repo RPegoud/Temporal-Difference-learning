@@ -9,7 +9,6 @@ class Agent:
         gamma: float = 0.1,  # undiscounted task
         step_size: float = 0.1,
         epsilon: float = 0.1,
-        random_seed: int = 17,
     ) -> None:
         self.env = Env()
         self.gamma = gamma
@@ -19,15 +18,15 @@ class Agent:
         self.actions = list(range(self.n_actions))
         self.last_action = -1
         self.last_state = -1
-        self.n_states = self.env.grid.size
         self.start_position = self.coord_to_state(
             self.env.coordinates.get("A")[0][::-1]
         )
         self.position = self.start_position
         self.q_values = self.init_state_action_dict()
         self.state_visits = self.init_state_dict(initial_value=0)
-        self.random_seed = random_seed
-        self.random_generator = np.random.RandomState(seed=self.random_seed)
+        self.random_generator = np.random.RandomState(
+            seed=17
+        )  # used mainly for testing
         self.done = False
         self.n_steps = []
         self.rewards = []

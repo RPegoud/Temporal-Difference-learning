@@ -2,9 +2,11 @@ import numpy as np
 import pandas as pd
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
-from tqdm.auto import tqdm
 
 from package.agent import Agent
+
+# from tqdm.auto import tqdm
+
 
 # flake8: noqa
 
@@ -86,7 +88,7 @@ class Q_learning_Agent(Agent):
         """
         self.value_estimates = {}
         self.episode_played = 0
-        for idx in tqdm(range(n_episode), position=0, leave=True):
+        for idx in range(n_episode):
             if self.episode_played == 100:
                 self.env.activate_late_portal()
             self.play_episode()

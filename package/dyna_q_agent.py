@@ -14,7 +14,7 @@ class Dyna_Q_Agent(Q_learning_Agent):
         super().__init__(gamma, step_size, epsilon)
         self.planning_steps = planning_steps
         self.model = {}  # model[state][action] = (new state, reward)
-        self.name = "Dyna Q"
+        self.name = "Dyna-Q"
 
     def update_model(
         self, last_state: int, last_action: int, state: int, reward: int
