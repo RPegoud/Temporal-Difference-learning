@@ -165,7 +165,7 @@ def plot_steps_per_episode(*agents):
         xaxis_title="Episode",
         yaxis_title="Steps",
         legend_title="Agent",
-        yaxis_type="log",  # Set y-axis to log scale
+        # yaxis_type="log",  # Set y-axis to log scale
     )
 
     fig.add_shape(
@@ -173,24 +173,8 @@ def plot_steps_per_episode(*agents):
         x0=100,
         x1=100,
         y0=1,
-        y1=10**5,
+        y1=300,
         line=dict(color="purple", width=1, dash="dot"),
-    )
-
-    fig.update_layout(
-        annotations=[
-            dict(
-                x=100,
-                y=10**4,
-                xref="x",
-                yref="y",
-                text="Purple Portal Appeared",
-                showarrow=True,
-                arrowhead=1,
-                ax=0,
-                ay=-40,
-            )
-        ]
     )
 
     fig.show()

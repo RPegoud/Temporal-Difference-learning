@@ -91,7 +91,7 @@ class Agent:
         # if the agent goes through the portal
         if self.env.grid.loc[y, x] == "P":
             return (11, 0)
-        # if the agent encounters falls into a trao
+        # if the agent encounters falls into a trap
         if self.env.grid.loc[y, x] == "T":
             self.rewards.append(0)
             self.done = True
