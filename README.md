@@ -1,9 +1,25 @@
 # Temporal-Difference-learning
 
-This project aims to compare several Temporal Difference learning algorithms (Q-learning, Dyna-Q and Dyna-Q+) in the context of an evolving grid world.
+This repository contains the code used to generate the experiment described in the article: [Temporal-Difference Learning and the importance of exploration: An illustrated guide](https://medium.com/p/5f9c3371413a), published in **Towards Data Science**.
 
-The results obtained during the training outline the importance of continous exploration in a changing environment and the limits of epsilon-greedy policies as only source of exploration.
+This project aims to compare several Temporal Difference learning algorithms (Q-learning, Dyna-Q, and Dyna-Q+) in the context of an evolving grid world.
 
+The results obtained during the training outline the importance of continuous exploration in a changing environment and the limits of epsilon-greedy policies as the only source of exploration.
+
+## 🌟 Key Features 
+* 🐍 Simple and comprehensive Python (Object Oriented) and Numpy codebase
+* 🌐 Dynamic Grid World encouraging continuous exploration
+* 🤖 Implemented Algorithms: Q-Learning, Dyna-Q, and Dyna-Q+
+* 📊 Plotly graphs enabling state value visualization throughout training and averaged performance reports
+
+## Environment
+<div align="center
+  <img src='https://miro.medium.com/v2/resize:fit:1400/format:webp/1*1kx0ghZRhWzdEKZUMBKqwQ.jpeg' alt="Environment" width="300" />
+
+<div/>
+
+## Model Performances
+  
 <!-- markdownlint-disable MD033 -->
 <!-- Image row -->
 <div align="center">
