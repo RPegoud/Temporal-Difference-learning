@@ -10,8 +10,12 @@ from package.plots import plot_average_reward, plot_steps_per_episode
 from package.q_learning_agent import Q_learning_Agent
 
 if __name__ == "__main__":
-    agents_parameters = {
-        Q_learning_Agent: {"epsilon": 0.1, "gamma": 0.9, "step_size": 0.25},
+    agents_parameters = {   
+        Q_learning_Agent: {
+            "epsilon": 0.1,
+            "gamma": 0.9,
+            "step_size": 0.25,
+        },
         Dyna_Q_Agent: {
             "planning_steps": 100,
             "epsilon": 0.1,
@@ -26,7 +30,7 @@ if __name__ == "__main__":
         },
     }
 
-    num_runs = 100
+    num_runs = 10
     num_episodes = 250
     random_seeds = np.arange(num_runs) + 100  # avoid seed 17, only used for testing
 

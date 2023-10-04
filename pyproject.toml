@@ -17,6 +17,10 @@ isort = "^5.12.0"
 ruff = "^0.0.272"
 poethepoet = "^0.20.0"
 pytest = "^7.3.2"
+nbformat = "^5.9.2"
+
+[tool.poetry.group.dev.dependencies]
+ipykernel = "^6.25.2"
 
 [tool.ruff]
 extend-ignore = ["E501"]
