@@ -43,11 +43,11 @@ This experiment aims to compare the behavior of **Q-learning**, **Dyna-Q**, and 
 <div align="center">
   <div style="display: flex; justify-content: center;">
     <div style="margin-right: 20px;">
-      <img src="https://miro.medium.com/v2/resize:fit:2000/format:webp/1*zJ-VxFGBRJH-hjoQTeqcDQ.png" alt="Image 1" width="300" />
+      <img src="https://miro.medium.com/v2/resize:fit:2000/format:webp/1*zJ-VxFGBRJH-hjoQTeqcDQ.png" alt="Image 1" width="900" />
       <p align="center"><em>Comparison of the cumulative reward per episode averaged over 100 runs</em></p>
     </div>
     <div>
-      <img src="https://miro.medium.com/v2/resize:fit:2000/format:webp/1*439rl6tlHwBdp5_BVcbh-Q.png" alt="Image 3" width="300" />
+      <img src="https://miro.medium.com/v2/resize:fit:2000/format:webp/1*439rl6tlHwBdp5_BVcbh-Q.png" alt="Image 3" width="900" />
       <p align="center"><em>Comparison of the number of steps per episode averaged over 100 runs</em></p>
     </div>
   </div>
@@ -58,15 +58,15 @@ This experiment aims to compare the behavior of **Q-learning**, **Dyna-Q**, and 
 <div align="center">
   <div style="display: flex; justify-content: center;">
     <div style="margin-right: 20px;">
-      <img src="https://github.com/RPegoud/Temporal-Difference-learning/blob/main/videos/q_learning_state_values.gif?raw=true" alt="Image 1" width="300" />
+      <img src="https://github.com/RPegoud/Temporal-Difference-learning/blob/main/videos/q_learning_state_values.gif?raw=true" alt="Image 1" width="600" />
       <p align="center"><em>Q-learning</em></p>
     </div>
     <div style="margin-right: 20px;">
-      <img src="https://github.com/RPegoud/Temporal-Difference-learning/blob/main/videos/dyna_q_state_values.gif?raw=true" alt="Image 2" width="280" />
+      <img src="https://github.com/RPegoud/Temporal-Difference-learning/blob/main/videos/dyna_q_state_values.gif?raw=true" alt="Image 2" width="600" />
       <p align="center"><em>Dyna-Q</em></p>
     </div>
     <div>
-      <img src="https://github.com/RPegoud/Temporal-Difference-learning/blob/main/videos/dyna_q_plus_state_values.gif?raw=true" alt="Image 3" width="290" />
+      <img src="https://github.com/RPegoud/Temporal-Difference-learning/blob/main/videos/dyna_q_plus_state_values.gif?raw=true" alt="Image 3" width="600" />
       <p align="center"><em>Dyna-Q+</em></p>
     </div>
   </div>
