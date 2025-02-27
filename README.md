@@ -28,12 +28,9 @@ The results obtained during the training outline the importance of continuous ex
 
 ## 🌟 Key Features
 
-* 🐍 Simple and comprehensive Python (Object Oriented) and Numpy codebase
+* 🐍 Straightforward Numpy implementation of model-free and model-based RL agents
+* 🤖 Algorithms: Q-Learning, Dyna-Q, and Dyna-Q+
 * 🌐 Dynamic Grid World encouraging continuous exploration
-* 🤖 Implemented Algorithms: Q-Learning, Dyna-Q, and Dyna-Q+
-* 🌍 Model-free and Model-free RL methods comparison
-* 📊 Plotly graphs enabling state value visualization throughout training and averaged performance reports
-* ✅ Easy installation using Poetry virtual environments
 
 ## 🎮 Environment
 
