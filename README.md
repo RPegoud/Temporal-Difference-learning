@@ -51,11 +51,11 @@ This experiment aims to compare the behavior of **Q-learning**, **Dyna-Q**, and 
 
 *Find the detailed breakdown of model performances and comparisons in the article.*
 
-| Algorithm  | Type        | Updates per step     | Runtime (400 episodes, single CPU) | Discovered optimal strategy (purple portal) | Average cumulative reward |
+| Algorithm  | Type        | Updates per step (real step + planning steps)     | Runtime (400 episodes, single CPU) | Discovered optimal strategy (purple portal) | Average cumulative reward |
 |:---------- | ----------- | -------------------- |:---------------------------------- | ------------------------------------------- |:------------------------- |
 | Q-learning | Model-free  | 1                    | 4.4 sec                            | No                                          | 0.70                      |
-| Dyna-Q     | Model-based | 101                  | 31.7 sec                           | No                                          | 0.87                      |
-| Dyna-Q+    | Model-based | 101                  | 39.5 sec                           | Yes                                         | 0.79                      |
+| Dyna-Q     | Model-based | 1 + 100                  | 31.7 sec                           | No                                          | 0.87                      |
+| Dyna-Q+    | Model-based | 1 + 100                  | 39.5 sec                           | Yes                                         | 0.79                      |
 
 <div align="center">
   <div style="display: flex; justify-content: center;">
