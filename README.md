@@ -1,5 +1,25 @@
 # Temporal-Difference-learning
 
+<p align="center">
+  <table>
+    <tr>
+      <td align="center">
+        <img src="https://github.com/RPegoud/Temporal-Difference-learning/blob/main/videos/q_learning_state_values.gif?raw=true" width="310" />
+        <br><em>Q-learning</em>
+      </td>
+      <td align="center">
+        <img src="https://github.com/RPegoud/Temporal-Difference-learning/blob/main/videos/dyna_q_state_values.gif?raw=true" width="310" />
+        <br><em>Dyna-Q</em>
+      </td>
+      <td align="center">
+        <img src="https://github.com/RPegoud/Temporal-Difference-learning/blob/main/videos/dyna_q_plus_state_values.gif?raw=true" width="310" />
+        <br><em>Dyna-Q+</em>
+      </td>
+    </tr>
+  </table>
+</p>
+
+
 This repository contains the code used to generate the experiment described in the article: [Temporal-Difference Learning and the importance of exploration: An illustrated guide](https://medium.com/p/5f9c3371413a), published in ***Towards Data Science***.
 
 This project aims to compare several Temporal Difference learning algorithms (Q-learning, Dyna-Q, and Dyna-Q+) in the context of an evolving grid world.
